@@ -6,7 +6,7 @@ using Com.Kooply.Unity.ExtensionMethods;
 using UnityEditor;
 using UnityEngine;
 
-namespace KooplyRun
+namespace Editor.Private
 {
     public class TestGenerator : EditorWindow
     {

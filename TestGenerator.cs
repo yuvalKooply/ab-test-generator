@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using Com.Kooply.Unity.ExtensionMethods;
-using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 

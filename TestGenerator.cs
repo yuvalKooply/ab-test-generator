@@ -242,7 +242,7 @@ namespace Editor.Private
 
             for (var i = 0; i < _testValues.Count; i++)
             {
-                var stringName = SnakeCaseToCamelCase(_testValues[i], _ignoreFirstTestNameWordInConfigClass);
+                var stringName = SnakeCaseToCamelCase(_testValues[i]);
                 values.Append($"\tpublic const string {stringName} = \"{_testValues[i].ToSnakeCase()}\";");
 
                 if (i < _testValues.Count - 1)

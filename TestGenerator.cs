@@ -240,6 +240,8 @@ namespace Editor.Private
             var result = new StringBuilder();
             var values = new StringBuilder();
 
+            result.Append($"// TODO: Delete when {_testName} is closed\n");
+            
             for (var i = 0; i < _testValues.Count; i++)
             {
                 var stringName = SnakeCaseToCamelCase(_testValues[i]);

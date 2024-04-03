@@ -162,7 +162,10 @@ namespace Editor.Private
                 GUIUtility.systemCopyBuffer = testOutput;
             
             if (GUILayout.Button("Open ActiveTestsConfig.cs"))
-                OpenActiveTestsConfig();
+                OpenFile("Assets/KooplyRun/Scripts/Configuration/ActiveTestsConfig.cs");
+            
+            if (GUILayout.Button("Open Config.Active.cs"))
+                OpenFile("Assets/Scripts/_INFRA_SPECIFICS/Config.Active.cs");
             
             EditorGUILayout.EndHorizontal();
          
@@ -179,7 +182,7 @@ namespace Editor.Private
                     GUIUtility.systemCopyBuffer = configConstsOutput;
 
                 if (GUILayout.Button("Open ConfigConsts.cs"))
-                    OpenConfigConsts();
+                    OpenFile("Assets/KooplyRun/Scripts/Configuration/ConfigConsts.cs");
                 
                 EditorGUILayout.EndHorizontal();
             }
@@ -277,15 +280,10 @@ namespace Editor.Private
 
             return string.Join("", words);
         }
-        
-        private void OpenActiveTestsConfig()
+
+        private void OpenFile(string path)
         {
-            AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/KooplyRun/Scripts/Configuration/ActiveTestsConfig.cs"));
-        }
-        
-        private void OpenConfigConsts()
-        {
-            AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/KooplyRun/Scripts/Configuration/ConfigConsts.cs"));
+            AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<MonoScript>(path));
         }
     }
 }

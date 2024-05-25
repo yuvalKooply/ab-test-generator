@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Com.Kooply.Unity.Config;
 using Com.Kooply.Unity.ExtensionMethods;
 using UnityEditor;
 using UnityEngine;
@@ -27,11 +29,18 @@ namespace Editor.Private
         private string _activeTestsConfigOutput;
         private string _configConstsOutput;
         private int _existingUserValueIndex;
+        private int _restartIndex;
         private bool _ignoreFirstTestNameWordInConfigClass = true;
         
         private List<string> _testValues = new ();
         private int _pendingFocusTestValue = -1;
-        
+        private string[] _restartEnumStrings;
+
+        private void Awake()
+        {
+            _restartEnumStrings = Enum.GetNames(typeof(Tri));
+        }
+
         protected void OnGUI()
         {
             EditorGUILayout.BeginVertical();
@@ -150,6 +159,7 @@ namespace Editor.Private
             }
 
             _existingUserValueIndex = EditorGUILayout.Popup("Existing User Value:", _existingUserValueIndex, _testValues.ToArray());
+            _restartIndex = EditorGUILayout.Popup("Restart:", _restartIndex, _restartEnumStrings);
  
             EditorGUILayout.LabelField("ActiveTestsConfig.cs Output:", EditorStyles.boldLabel);
             
@@ -206,6 +216,9 @@ namespace Editor.Private
             var configTestValues = testValues.JoinStrings();
             if (_existingUserValueIndex >= 0 && _existingUserValueIndex < _testValues.Count)
                 configTestValues += ", ExistingUserValue = " + testValues[_existingUserValueIndex];
+            
+            if (_restartIndex > 0 && _restartIndex < _restartEnumStrings.Length)
+                configTestValues += ", Restart = " + _restartEnumStrings[_restartIndex];
             
             result.Append($"[ConfigTest({configTestValues})]\npublic ");
 

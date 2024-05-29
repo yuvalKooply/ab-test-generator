@@ -218,7 +218,7 @@ namespace Editor.Private
                 configTestValues += ", ExistingUserValue = " + testValues[_existingUserValueIndex];
             
             if (_restartIndex > 0 && _restartIndex < _restartEnumStrings.Length)
-                configTestValues += ", Restart = " + _restartEnumStrings[_restartIndex];
+                configTestValues += ", Restart = Tri." + _restartEnumStrings[_restartIndex];
             
             result.Append($"[ConfigTest({configTestValues})]\npublic ");
 

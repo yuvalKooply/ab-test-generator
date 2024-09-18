@@ -47,7 +47,7 @@ namespace Editor.Private
             
             _testName = EditorGUILayout.TextField("Test Name:", _testName);
 
-            if (_dataType is DataType.String)
+            if (_dataType == DataType.String)
                 _ignoreFirstTestNameWordInConfigClass = EditorGUILayout.ToggleLeft("Ignore first word in ConfigConsts", _ignoreFirstTestNameWordInConfigClass);
             
             var selectedDataType = (DataType)EditorGUILayout.EnumPopup("Data Type:", _dataType);
@@ -58,7 +58,7 @@ namespace Editor.Private
             {
                 var confirmClear = true;
 
-                if (_dataType is not DataType.Bool)
+                if (_dataType != DataType.Bool)
                 {
                     confirmClear = EditorUtility.DisplayDialog(
                         "AB Test Generator Warning!",
@@ -101,13 +101,11 @@ namespace Editor.Private
                 }
             }
 
-            var didAddNewTestValue = false;
-            
             for (var i = 0; i < _testValues.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
 
-                if (_dataType is DataType.Bool)
+                if (_dataType == DataType.Bool)
                     GUI.enabled = false;
                 
                 GUI.SetNextControlName("testValue" + i);
@@ -116,14 +114,14 @@ namespace Editor.Private
                     _testValues[i] = EditorGUILayout.TextField("", _testValues[i]);
                 else
                 {
-                    if (_dataType is DataType.Int)
+                    if (_dataType == DataType.Int)
                     {
                         int.TryParse(_testValues[i], out var testValue);
                         var intValue = EditorGUILayout.IntField("", testValue);
                         _testValues[i] = intValue.ToString();
                     }
                     
-                    if (_dataType is DataType.Float)
+                    if (_dataType == DataType.Float)
                     {
                         float.TryParse(_testValues[i], out var testValue);
                         var floatValue = EditorGUILayout.FloatField("", testValue);
@@ -131,31 +129,24 @@ namespace Editor.Private
                     }
                 }
 
-                if (_dataType is DataType.Bool)
+                if (_dataType == DataType.Bool)
                     GUI.enabled = true;
                 else
                 {
                     if (_testValues.Count > 1)
                     {
-                        if (GUILayout.Button("-"))
+                        if (GUILayout.Button("-", new GUIStyle(GUI.skin.button) { fixedWidth = 30 }))
                             _testValues.RemoveAt(i);
-                    }
-                    
-                    if (GUILayout.Button("+"))
-                    {
-                        _testValues.Add("");
-                        _pendingFocusTestValue = i + 1;
-                        didAddNewTestValue = true;
                     }
                 }
 
                 EditorGUILayout.EndHorizontal();
             }
-
-            if (!didAddNewTestValue && _pendingFocusTestValue >= 0)
+            
+            if (_dataType != DataType.Bool)
             {
-                EditorGUI.FocusTextInControl("testValue" + _pendingFocusTestValue);
-                _pendingFocusTestValue = -1;
+                if (GUILayout.Button("+", new GUIStyle(GUI.skin.button) {fixedWidth = 30}))
+                    _testValues.Add("");
             }
 
             _existingUserValueIndex = EditorGUILayout.Popup("Existing User Value:", _existingUserValueIndex, _testValues.ToArray());
@@ -179,7 +170,7 @@ namespace Editor.Private
             
             EditorGUILayout.EndHorizontal();
          
-            if (_dataType is DataType.String)
+            if (_dataType == DataType.String)
             {
                 EditorGUILayout.LabelField("ConfigConsts.cs Output:", EditorStyles.boldLabel);
                 
@@ -193,6 +184,9 @@ namespace Editor.Private
 
                 if (GUILayout.Button("Open ConfigConsts.cs"))
                     OpenFile("Assets/KooplyRun/Scripts/Configuration/ConfigConsts.cs");
+                
+                if (GUILayout.Button("Open Config.Consts.cs"))
+                    OpenFile("Assets/Scripts/_INFRA_SPECIFICS/ConfigConsts.cs");
                 
                 EditorGUILayout.EndHorizontal();
             }
@@ -209,7 +203,7 @@ namespace Editor.Private
             
             for (var i = 0; i < _testValues.Count; i++)
             {
-                if (_dataType is DataType.String)
+                if (_dataType == DataType.String)
                     testValues[i] = $"{stringTestClassName}.{SnakeCaseToCamelCase(_testValues[i])}";
             }
 

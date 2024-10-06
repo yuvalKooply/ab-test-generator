@@ -186,7 +186,7 @@ namespace Editor.Private
                     OpenFile("Assets/KooplyRun/Scripts/Configuration/ConfigConsts.cs");
                 
                 if (GUILayout.Button("Open Config.Consts.cs"))
-                    OpenFile("Assets/Scripts/_INFRA_SPECIFICS/ConfigConsts.cs");
+                    OpenFile("Assets/Scripts/_INFRA_SPECIFICS/Config.Consts.cs");
                 
                 EditorGUILayout.EndHorizontal();
             }

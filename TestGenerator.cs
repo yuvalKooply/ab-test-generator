@@ -205,6 +205,8 @@ namespace Editor.Private
             {
                 if (_dataType == DataType.String)
                     testValues[i] = $"{stringTestClassName}.{SnakeCaseToCamelCase(_testValues[i])}";
+                else if (_dataType == DataType.Float)
+                    testValues[i] += "f";
             }
 
             var configTestValues = testValues.JoinStrings();
@@ -239,7 +241,6 @@ namespace Editor.Private
 
             if (!_testValues[0].IsNullOrEmpty())
                 result.Append($" = {testValues[0]}");
-
             result.Append(";");
 
             return result.ToString();
